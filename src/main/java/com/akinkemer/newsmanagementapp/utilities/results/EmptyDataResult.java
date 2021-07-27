@@ -1,11 +1,11 @@
 package com.akinkemer.newsmanagementapp.utilities.results;
 
-public class EmptyDataResults extends DataResult {
-    public EmptyDataResults(String message) {
+public class EmptyDataResult extends DataResult {
+    public EmptyDataResult(String message) {
         super(null, true ,message);
     }
 
-    public EmptyDataResults() {
+    public EmptyDataResult() {
         super(null, true,"There is no data");
     }
 }
