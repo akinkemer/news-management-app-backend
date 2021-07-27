@@ -5,7 +5,10 @@ import com.akinkemer.newsmanagementapp.domain.security.AppUser;
 import com.akinkemer.newsmanagementapp.utilities.results.DataResult;
 import com.akinkemer.newsmanagementapp.utilities.results.Result;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.util.List;
 
 public interface AppUserService {
@@ -14,5 +17,5 @@ public interface AppUserService {
     DataResult<AppUser> getUser(String userName);
     Result addRoleToUser(String userName, String roleName);
     DataResult<List<AppUser>> getUsers();
-
-}
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    }
