@@ -23,7 +23,7 @@ public class AppUserConfig {
                     null,
                     "Akın Kemer",
                     "akinkemer",
-                    "12345",
+                    "12345678",
                     new ArrayList<>()));
 
             appUserService.addRoleToUser("akinkemer","ROLE_ADMIN");
@@ -32,7 +32,7 @@ public class AppUserConfig {
                     null,
                     "John Doe",
                     "johndoe",
-                    "12345",
+                    "12345678",
                     new ArrayList<>()));
 
             appUserService.addRoleToUser("johndoe","ROLE_USER");

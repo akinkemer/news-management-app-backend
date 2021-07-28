@@ -4,6 +4,7 @@ import com.akinkemer.newsmanagementapp.domain.security.AppRole;
 import com.akinkemer.newsmanagementapp.domain.security.AppUser;
 import com.akinkemer.newsmanagementapp.repository.AppRoleRepository;
 import com.akinkemer.newsmanagementapp.repository.AppUserRepository;
+import com.akinkemer.newsmanagementapp.utilities.requestBodies.GetUserForm;
 import com.akinkemer.newsmanagementapp.utilities.results.*;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,6 +120,23 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             return new EmptyDataResult("There are no users");
         }
     }
+
+    @Override
+    public DataResult<GetUserForm> getCurrentUser(String username) {
+        Optional<AppUser> user = appUserRepository.findByUserName(username);
+        if (user.isPresent()) {
+            return new SuccessDataResult<GetUserForm>(
+                    new GetUserForm(
+                            user.get().getUserName(),
+                            user.get().getName(),
+                            user.get().getRoles()),
+                    "Current user fetched successfully"
+            );
+        } else {
+            return new ErrorDataResult<>("Failed to fetch current user");
+        }
+    }
+
     @Override
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
