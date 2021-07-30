@@ -1,7 +1,9 @@
 package com.akinkemer.newsmanagementapp.config;
 
+import com.akinkemer.newsmanagementapp.domain.app.Announcement;
 import com.akinkemer.newsmanagementapp.domain.security.AppRole;
 import com.akinkemer.newsmanagementapp.domain.security.AppUser;
+import com.akinkemer.newsmanagementapp.repository.AnnouncementRepository;
 import com.akinkemer.newsmanagementapp.service.AppUserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +16,11 @@ import java.util.ArrayList;
 @Configuration
 public class AppUserConfig {
     @Bean
-    CommandLineRunner commandLineRunner(AppUserService appUserService) {
+    CommandLineRunner commandLineRunner(AppUserService appUserService, AnnouncementRepository announcementRepository) {
         return args -> {
+
+            announcementRepository.save(new Announcement());
+
             appUserService.saveRole(new AppRole(null, "ROLE_ADMIN"));
             appUserService.saveRole(new AppRole(null, "ROLE_USER"));
 
