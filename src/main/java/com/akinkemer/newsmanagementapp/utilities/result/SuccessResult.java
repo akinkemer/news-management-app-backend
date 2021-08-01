@@ -1,4 +1,4 @@
-package com.akinkemer.newsmanagementapp.utilities.results;
+package com.akinkemer.newsmanagementapp.utilities.result;
 
 public class SuccessResult extends Result{
     public SuccessResult() {

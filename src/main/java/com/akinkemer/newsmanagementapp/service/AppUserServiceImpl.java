@@ -4,8 +4,8 @@ import com.akinkemer.newsmanagementapp.domain.security.AppRole;
 import com.akinkemer.newsmanagementapp.domain.security.AppUser;
 import com.akinkemer.newsmanagementapp.repository.AppRoleRepository;
 import com.akinkemer.newsmanagementapp.repository.AppUserRepository;
-import com.akinkemer.newsmanagementapp.utilities.requestBodies.GetUserForm;
-import com.akinkemer.newsmanagementapp.utilities.results.*;
+import com.akinkemer.newsmanagementapp.utilities.request.GetUserForm;
+import com.akinkemer.newsmanagementapp.utilities.result.*;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,10 +62,17 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public DataResult<AppUser> saveUser(AppUser user) {
+        Optional<AppUser> userOptional=appUserRepository.findByUserName(user.getUserName());
+        if(userOptional.isPresent()){
+            log.error("Failed to save user {}. Username already taken", user.getName());
+            return new ErrorDataResult("Username already taken");
+        }
         log.info("Saving new user {} to the database", user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        AppUser savedUser=appUserRepository.save(user);
+        addRoleToUser(savedUser.getUserName(),"ROLE_USER");
         return new SuccessDataResult<AppUser>(
-                appUserRepository.save(user), "User saved successfully");
+                savedUser, "User saved successfully");
     }
 
     @Override
@@ -93,6 +99,16 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
         Optional<AppUser> user = appUserRepository.findByUserName(userName);
         Optional<AppRole> role = appRoleRepository.findByName(roleName);
+
+        boolean hasUserSameRole=user.get().getRoles().stream().anyMatch(appRole -> {
+           if(appRole.getName().equals(roleName)){return true;}
+           else{ return false;}
+        });
+
+        if(hasUserSameRole){
+            log.error("User already has this role");
+            return new ErrorResult("User already has this role");
+        }
 
         if (user.isPresent() && role.isPresent()) {
             log.info("Adding role {} to user {}", roleName, userName);
@@ -122,7 +138,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public DataResult<GetUserForm> getCurrentUser(String username) {
+    public DataResult<GetUserForm> getUserByUserName(String username) {
         Optional<AppUser> user = appUserRepository.findByUserName(username);
         if (user.isPresent()) {
             return new SuccessDataResult<GetUserForm>(

@@ -1,4 +1,4 @@
-package com.akinkemer.newsmanagementapp.utilities.results;
+package com.akinkemer.newsmanagementapp.utilities.result;
 
 public class SuccessDataResult<T> extends DataResult<T>{
     public SuccessDataResult(T data, String message) {

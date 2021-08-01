@@ -1,4 +1,4 @@
-package com.akinkemer.newsmanagementapp.utilities.results;
+package com.akinkemer.newsmanagementapp.utilities.result;
 
 public class ErrorResult extends Result{
     public ErrorResult() {

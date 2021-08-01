@@ -1,4 +1,4 @@
-package com.akinkemer.newsmanagementapp.utilities.requestBodies;
+package com.akinkemer.newsmanagementapp.utilities.request;
 
 import lombok.Data;
 
