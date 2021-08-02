@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -28,14 +29,14 @@ public class AppUserConfig {
             announcementRepository.save(new Announcement(
                     "Konu",
                     "İçerik",
-                    LocalDateTime.now().plusDays(10),
+                    LocalDate.now().plusDays(10),
                     "http://localhost:8080/api/v1/file/download/Ak%C4%B1n%20Kemer%20Kimlik.jpeg",
                     LocalDateTime.now()
                     ));
             newsRepository.save(new News(
                     "Konu",
                     "İçerik",
-                    LocalDateTime.now().plusDays(10),
+                    LocalDate.now().plusDays(10),
                     "https://www.aksam.com.tr/guncel/ormanin-kahramanlari/haber-1192734",
                     LocalDateTime.now()
             ));

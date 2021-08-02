@@ -6,7 +6,6 @@ import com.akinkemer.newsmanagementapp.service.EventService;
 import com.akinkemer.newsmanagementapp.utilities.request.AnnouncementSaveRequest;
 import com.akinkemer.newsmanagementapp.utilities.request.NewsSaveRequest;
 import com.akinkemer.newsmanagementapp.utilities.result.DataResult;
-import com.akinkemer.newsmanagementapp.utilities.result.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +19,12 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping("/news/save")
-    public Result saveNews(@RequestBody NewsSaveRequest request) {
+    public DataResult<News> saveNews(@RequestBody NewsSaveRequest request) {
         return eventService.saveNews(request);
     }
 
     @PostMapping("/announcement/save")
-    public Result saveNews(@RequestBody AnnouncementSaveRequest request) {
+    public DataResult<Announcement> saveNews(@RequestBody AnnouncementSaveRequest request) {
         return eventService.saveAnnouncement(request);
     }
 

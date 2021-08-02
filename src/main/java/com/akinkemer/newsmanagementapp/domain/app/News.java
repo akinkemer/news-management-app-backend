@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class News extends Event {
     public News(String subject,
                 String content,
-                LocalDateTime invalidAt,
+                LocalDate invalidAt,
                 String link,
                 LocalDateTime createdAt) {
         setSubject(subject);

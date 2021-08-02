@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +16,7 @@ public class Announcement extends Event {
     private String imageLink;
     public Announcement(String subject,
                         String content,
-                        LocalDateTime invalidAt,
+                        LocalDate invalidAt,
                         String imageLink,
                         LocalDateTime createdAt) {
         setSubject(subject);

@@ -1,9 +1,9 @@
 package com.akinkemer.newsmanagementapp.domain.app;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,7 +17,7 @@ public abstract class Event {
 
     private String content;
 
-    private LocalDateTime invalidAt;
+    private LocalDate invalidAt;
 
     private LocalDateTime createdAt;
 
@@ -29,7 +29,7 @@ public abstract class Event {
         this.content = content;
     }
 
-    public void setInvalidAt(LocalDateTime invalidAt) {
+    public void setInvalidAt(LocalDate invalidAt) {
         this.invalidAt = invalidAt;
     }
 

@@ -30,18 +30,19 @@ public class EventServiceImpl implements EventService {
     private final SimpMessagingTemplate messagingTemplate;
 
     @Override
-    public Result saveNews(NewsSaveRequest request) {
-        newsRepository.save(new News(
+    public DataResult<News> saveNews(NewsSaveRequest request) {
+        News news=new News(
                 request.getSubject(),
                 request.getContent(),
                 request.getInvalidAt(),
                 request.getLink(),
-                LocalDateTime.now()));
-        return new SuccessResult("News saved successfully");
+                LocalDateTime.now());
+        newsRepository.save(news);
+        return new SuccessDataResult(news,"News saved successfully");
     }
 
     @Override
-    public Result saveAnnouncement(AnnouncementSaveRequest request) {
+    public DataResult<Announcement> saveAnnouncement(AnnouncementSaveRequest request) {
         Announcement announcement=new Announcement(
                 request.getSubject(),
                 request.getContent(),
@@ -50,7 +51,7 @@ public class EventServiceImpl implements EventService {
                 LocalDateTime.now());
         announcementRepository.save(announcement);
         messagingTemplate.convertAndSend("/announcementBroker", announcement);
-        return new SuccessResult("Announcement saved successfully");
+        return new SuccessDataResult<>(announcement,"Announcement saved successfully");
     }
 
     @Override
