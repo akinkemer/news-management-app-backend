@@ -8,17 +8,15 @@ import com.akinkemer.newsmanagementapp.utilities.request.NewsSaveRequest;
 import com.akinkemer.newsmanagementapp.utilities.result.DataResult;
 import com.akinkemer.newsmanagementapp.utilities.result.Result;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-@Slf4j
+
 public class EventController {
     private final EventService eventService;
 
@@ -65,7 +63,6 @@ public class EventController {
             @PathVariable("id") Long id,
             @RequestBody Announcement announcement
             ) {
-        log.info("update {}",announcement);
         eventService.updateAnnouncement(id,announcement);
     }
 }

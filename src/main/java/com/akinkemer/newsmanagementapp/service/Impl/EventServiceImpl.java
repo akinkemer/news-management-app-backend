@@ -2,6 +2,9 @@ package com.akinkemer.newsmanagementapp.service.Impl;
 
 import com.akinkemer.newsmanagementapp.domain.app.Announcement;
 import com.akinkemer.newsmanagementapp.domain.app.News;
+import com.akinkemer.newsmanagementapp.observer.IAnnouncementSubject;
+import com.akinkemer.newsmanagementapp.observer.LOGAnnouncementSubscriber;
+import com.akinkemer.newsmanagementapp.observer.WSAnnouncementSubscriber;
 import com.akinkemer.newsmanagementapp.repository.AnnouncementRepository;
 import com.akinkemer.newsmanagementapp.repository.NewsRepository;
 import com.akinkemer.newsmanagementapp.service.EventService;
@@ -28,7 +31,9 @@ import java.util.Optional;
 public class EventServiceImpl implements EventService {
     private final NewsRepository newsRepository;
     private final AnnouncementRepository announcementRepository;
-    private final SimpMessagingTemplate messagingTemplate;
+    private final IAnnouncementSubject announcementPublisher;
+    private final WSAnnouncementSubscriber wsAnnouncementSubscriber;
+    private final LOGAnnouncementSubscriber logAnnouncementSubscriber;
 
     @Override
     public DataResult<News> saveNews(NewsSaveRequest request) {
@@ -51,7 +56,11 @@ public class EventServiceImpl implements EventService {
                 request.getImageLink(),
                 LocalDateTime.now());
         announcementRepository.save(announcement);
-        messagingTemplate.convertAndSend("/announcementBroker", announcement);
+
+        announcementPublisher.attach(wsAnnouncementSubscriber);
+        announcementPublisher.attach(logAnnouncementSubscriber);
+        announcementPublisher.notify(announcement);
+
         return new SuccessDataResult<>(announcement, "Announcement saved successfully");
     }
 
