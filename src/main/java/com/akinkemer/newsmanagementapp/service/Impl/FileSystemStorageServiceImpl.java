@@ -1,6 +1,7 @@
-package com.akinkemer.newsmanagementapp.service;
+package com.akinkemer.newsmanagementapp.service.Impl;
 
 import com.akinkemer.newsmanagementapp.domain.app.FileUploadProperties;
+import com.akinkemer.newsmanagementapp.service.FileSystemStorageService;
 import com.akinkemer.newsmanagementapp.utilities.response.FileResponse;
 import com.akinkemer.newsmanagementapp.utilities.result.DataResult;
 import com.akinkemer.newsmanagementapp.utilities.result.ErrorDataResult;

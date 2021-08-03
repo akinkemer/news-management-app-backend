@@ -1,9 +1,10 @@
-package com.akinkemer.newsmanagementapp.service;
+package com.akinkemer.newsmanagementapp.service.Impl;
 
 import com.akinkemer.newsmanagementapp.domain.security.AppRole;
 import com.akinkemer.newsmanagementapp.domain.security.AppUser;
 import com.akinkemer.newsmanagementapp.repository.AppRoleRepository;
 import com.akinkemer.newsmanagementapp.repository.AppUserRepository;
+import com.akinkemer.newsmanagementapp.service.AppUserService;
 import com.akinkemer.newsmanagementapp.utilities.request.GetUserForm;
 import com.akinkemer.newsmanagementapp.utilities.result.*;
 import com.auth0.jwt.JWT;

@@ -6,15 +6,19 @@ import com.akinkemer.newsmanagementapp.service.EventService;
 import com.akinkemer.newsmanagementapp.utilities.request.AnnouncementSaveRequest;
 import com.akinkemer.newsmanagementapp.utilities.request.NewsSaveRequest;
 import com.akinkemer.newsmanagementapp.utilities.result.DataResult;
+import com.akinkemer.newsmanagementapp.utilities.result.Result;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
+@Slf4j
 public class EventController {
     private final EventService eventService;
 
@@ -38,6 +42,30 @@ public class EventController {
         return eventService.getAllNews();
     }
 
+    @DeleteMapping(path = "/announcement/delete/{announcementId}")
+    public Result deleteAnnouncement(@PathVariable("announcementId") Long id) {
+        return eventService.deleteAnnouncement(id);
+    }
 
+    @DeleteMapping(path = "/news/delete/{newsId}")
+    public Result deleteNews(@PathVariable("newsId") Long id) {
+        return eventService.deleteNews(id);
+    }
 
+    @PutMapping(path = "/news/update/{id}")
+    public void updateNews(
+            @PathVariable("id") Long id,
+            @RequestBody  News news
+            ) {
+        eventService.updateNews(id,news);
+    }
+
+    @PutMapping(path = "/announcement/update/{id}")
+    public void updateAnnouncement(
+            @PathVariable("id") Long id,
+            @RequestBody Announcement announcement
+            ) {
+        log.info("update {}",announcement);
+        eventService.updateAnnouncement(id,announcement);
+    }
 }

@@ -15,6 +15,8 @@ public abstract class Event {
 
     private String subject;
 
+    @Lob
+    @Column(length=1024)
     private String content;
 
     private LocalDate invalidAt;

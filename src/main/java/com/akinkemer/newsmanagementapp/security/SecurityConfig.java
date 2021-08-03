@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/ws/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/v1/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/v1/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/file/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/file/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
